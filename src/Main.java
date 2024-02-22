@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.Scanner;
 
@@ -51,7 +50,7 @@ public class Main {
     String group = "";
     boolean sex = false;
     while (working) {
-      String input = "";
+      String input;
       while (age < 1 || age > 150) {
         System.out.println("Input the students age:");
         input = scan.nextLine();
