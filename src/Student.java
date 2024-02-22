@@ -5,7 +5,7 @@ public class Student {
 
   /**
    * Student class
-   * has 5 fields
+   * has 6 fields
    * each with a setter and getter
    * interesting methods:
    * boolean outOfSchool
@@ -19,7 +19,7 @@ public class Student {
   private double averageGrade;
   private String name;
   private String group;
-
+  private boolean sex; //false - female, true - male
   /**
    * Default constructor for a Student object.
    */
@@ -29,6 +29,7 @@ public class Student {
     year = 1;
     name = "";
     group = "";
+    sex = false;
   }
 
   /**
@@ -39,12 +40,13 @@ public class Student {
    * @param name String containing the name for the new student instance
    * @param newGroup String containing the group name for the new student instance
    */
-  public Student(int newAge, int newYear, double newAverageGrade, String name, String newGroup) {
+  public Student(int newAge, int newYear, double newAverageGrade, String name, String newGroup, boolean sex) {
     setAge(newAge);
     setAverageGrade(newAverageGrade);
     setName(name);
     setGroup(newGroup);
     setYear(newYear);
+    setSex(sex);
   }
 
   /**
@@ -138,6 +140,22 @@ public class Student {
   }
 
   /**
+   * Getter for sex
+   * @return boolean - the sex of the student in question
+   */
+  public boolean getSex() {
+    return sex;
+  }
+
+  /**
+   * Setter for sex
+   * @param newSex - the new sex for the student
+   */
+  public void setSex(boolean newSex) {
+    sex = newSex;
+  }
+
+  /**
    * Function used to determine if the student in question started studying
    * right after graduating from high school, i.e was 18 in first year;
    * @return boolean meaning that the student started studying at 18 if true
@@ -154,6 +172,7 @@ public class Student {
   public String getInfo() {
     String checkedName;
     String checkedGroup;
+    String checkedSex;
     if (Objects.equals(name, "")) {
       checkedName = "No Name";
     } else {
@@ -164,10 +183,16 @@ public class Student {
     } else {
       checkedGroup = group;
     }
+    if (sex) {
+      checkedSex = "Male";
+    } else {
+      checkedSex = "Female";
+    }
     return "Age: " + age + "\n"
         + "Year: " + year + "\n"
         + "Average grade: " + averageGrade + "\n"
         + "Name: " + checkedName + "\n"
-        + "Group: " + checkedGroup + "\n";
+        + "Group: " + checkedGroup + "\n"
+        + "Sex: " + checkedSex + "\n";
   }
 }
