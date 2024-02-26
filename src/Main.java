@@ -7,7 +7,7 @@ import java.util.Scanner;
  */
 public class Main {
 
-  public static ArrayList<Student> students = new ArrayList<Student>();
+  public static ArrayList<Student> students = new ArrayList<>();
 
   /**
    * @param str - string to be checked
@@ -58,7 +58,6 @@ public class Main {
           age = Integer.parseInt(input);
         }
       }
-      input = "";
       while (year < 1 || year > 6) {
         System.out.println("Input which year the student is in:");
         input = scan.nextLine();
@@ -66,7 +65,6 @@ public class Main {
           year = Integer.parseInt(input);
         }
       }
-      input = "";
       while (averageGrade < 0 || averageGrade > 5) {
         System.out.println("Input the students average grade:");
         input = scan.nextLine();
@@ -109,14 +107,16 @@ public class Main {
     Scanner scan = new Scanner(System.in);
     while (true) {
       while (chosen > 8 || chosen < 1) {
-        System.out.println("What would you like to edit: \n"
-            + "1)The age of the student.\n"
-            + "2)The average grade of the student.\n"
-            + "3)The year of the student.\n"
-            + "4)The student`s name.\n"
-            + "5)The student`s group name.\n"
-            + "6)The student`s sex.\n"
-            + "7)Quit.\n");
+        System.out.println("""
+            What would you like to edit:\s
+            1)The age of the student.
+            2)The average grade of the student.
+            3)The year of the student.
+            4)The student`s name.
+            5)The student`s group name.
+            6)The student`s sex.
+            7)Quit.
+            """);
         input = scan.nextLine();
         if (isInteger(input)) {
           chosen = Integer.parseInt(input);
@@ -167,11 +167,7 @@ public class Main {
             newSex = Integer.parseInt(input);
           }
         }
-        if (newSex == 1) {
-          inst.setSex(true);
-        } else {
-          inst.setSex(false);
-        }
+        inst.setSex(newSex == 1);
       }
       break;
     }
@@ -181,12 +177,11 @@ public class Main {
    * Function implementing a text menu
    */
   public static void menu() {
-    boolean res = false;
     boolean inp = false;
     int action = 0;
     Scanner scan = new Scanner(System.in);
     while (true) {
-      String input = "";
+      String input;
       while (!(action > 0 && action < 6)) {
         System.out.println("""
             Choose an action:
@@ -202,7 +197,7 @@ public class Main {
       }
       if (action == 1) {
         inp = true;
-        String choice = "";
+        String choice;
         int chosen = 0;
         while (!(chosen == 1 || chosen == 2)) {
           System.out.println("""
@@ -223,7 +218,7 @@ public class Main {
         if (inp) {
           boolean working = true;
           while (working) {
-            String choice = "";
+            String choice;
             int chosen = -1;
             while (chosen < 0 || chosen >= students.size()) {
               System.out.println("Choose a student (input their ID, "
@@ -261,7 +256,7 @@ public class Main {
         }
       } else if (action == 4) {
         if (inp) {
-          String choice = "";
+          String choice;
           int chosen = 0;
           while (!(chosen > 0 && chosen < 7)) {
             System.out.println("""
@@ -275,18 +270,13 @@ public class Main {
             choice = scan.nextLine();
             if (isInteger(choice)) {
               chosen = Integer.parseInt(choice);
-              if (chosen == 1) {
-                students.sort(Comparator.comparing(Student::getAge));
-              } else if (chosen == 2) {
-                students.sort(Comparator.comparing(Student::getYear));
-              } else if (chosen == 3) {
-                students.sort(Comparator.comparing(Student::getAverageGrade));
-              } else if (chosen == 4) {
-                students.sort(Comparator.comparing(Student::getName));
-              } else if (chosen == 5) {
-                students.sort(Comparator.comparing(Student::getGroup));
-              } else if (chosen == 6) {
-                students.sort(Comparator.comparing(Student::getSex));
+              switch(chosen){
+                case 1 -> students.sort(Comparator.comparing(Student::getAge));
+                case 2 -> students.sort(Comparator.comparing(Student::getYear));
+                case 3 -> students.sort(Comparator.comparing(Student::getAverageGrade));
+                case 4 -> students.sort(Comparator.comparing(Student::getName));
+                case 5 -> students.sort(Comparator.comparing(Student::getGroup));
+                case 6 -> students.sort(Comparator.comparing(Student::getSex));
               }
               for (Student curr : students) {
                 System.out.println(curr.getInfo());
